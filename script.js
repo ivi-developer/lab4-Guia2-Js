@@ -45,59 +45,79 @@ const combinarArreglos = (arr1, arr2) => [... new Set([...arr1, ...arr2])]
 console.log(JSON.stringify(combinarArreglos(arrayNums, arrayNumsAux)))
 ////////////////////Arreglos con Tipos de Datos Compuestos: 
 //Lista de Compras: Crea una lista de compras que incluya productos y sus cantidades.
-function Producto(nombre,cantidad){
-    this.nombre=nombre
-    this.cantidad=cantidad
+function Producto(nombre, cantidad) {
+    this.nombre = nombre
+    this.cantidad = cantidad
 }
-const listaDeCompras={
-    productos:[],
-    agregarProducto: function(producto){this.productos.unshift(producto)}
+const listaDeCompras = {
+    productos: [],
+    agregarProducto: function (producto) { this.productos.unshift(producto) }
 }
-listaDeCompras.agregarProducto(new Producto('manzana',5))
-listaDeCompras.agregarProducto(new Producto('pera',7))
-listaDeCompras.agregarProducto(new Producto('banana',6))
+listaDeCompras.agregarProducto(new Producto('manzana', 5))
+listaDeCompras.agregarProducto(new Producto('pera', 7))
+listaDeCompras.agregarProducto(new Producto('banana', 6))
 console.log(listaDeCompras.productos)
 //Agenda de Contactos: Crea una agenda de contactos con nombres, números de teléfono y correos electrónicos
-function crearAgenda(){
-    return{
-        contactos:[],
-        agendarContacto: function(contacto){this.contactos.unshift(contacto)}
+function crearAgenda() {
+    return {
+        contactos: [],
+        agendarContacto: function (contacto) { this.contactos.unshift(contacto) }
     }
 }
-function Contacto(nombre,numero,correo){
-    this.nombre=nombre,
-    this.numero=numero,
-    this.correo=correo
+function Contacto(nombre, numero, correo) {
+    this.nombre = nombre,
+        this.numero = numero,
+        this.correo = correo
 }
-const agenda=crearAgenda()
-agenda.agendarContacto(new Contacto('marcos', '223223223','marcos@correo'))
-agenda.agendarContacto(new Contacto('pablo glassi','2232223223','pablo@correo'))
+const agenda = crearAgenda()
+agenda.agendarContacto(new Contacto('marcos', '223223223', 'marcos@correo'))
+agenda.agendarContacto(new Contacto('pablo glassi', '2232223223', 'pablo@correo'))
 console.log(agenda.contactos)
 //Búsqueda de Palabras: Dado un párrafo y una palabra, cuenta cuántas veces aparece la palabra en el párrafo
-const parrafo='que onda wacho todo piola onda onda'
-const cantPalabras=(array, palabra)=>array.split(" ").filter(a=>a===palabra).length
-console.log(cantPalabras(parrafo,'onda'))
+const parrafo = 'que onda wacho todo piola onda onda'
+const cantPalabras = (array, palabra) => array.split(" ").filter(a => a === palabra).length
+console.log(cantPalabras(parrafo, 'onda'))
 //Clasificación de Objetos: Ordena un arreglo de objetos por una propiedad específica.
-const ordenarPorCampo=array=>array.sort((a,b)=>a.cantidad-b.cantidad)
+const ordenarPorCampo = array => array.sort((a, b) => a.cantidad - b.cantidad)
 ordenarPorCampo(listaDeCompras.productos)
 console.log(listaDeCompras.productos)
 //Registro de Ventas: Crea un registro de ventas con información sobre productos, cantidades y precios.
-const registroVentas={
-    productos:[],
-    agregarProducto:function(producto){this.productos.push(producto)}
+const registroVentas = {
+    productos: [],
+    agregarProducto: function (producto) { this.productos.push(producto) }
 }
-function OtroProdcuto(nombre, cantidad,precio){
-    this.nombre=nombre,
-    this.cantidad=cantidad,
-    this.precio=precio
+function OtroProdcuto(nombre, cantidad, precio) {
+    this.nombre = nombre,
+        this.cantidad = cantidad,
+        this.precio = precio
 }
-registroVentas.agregarProducto(new OtroProdcuto('mesa', 10,50000))
+registroVentas.agregarProducto(new OtroProdcuto('mesa', 10, 50000))
 console.log(registroVentas.productos)
 //Carrito de Compras: Simula un carrito de compras que permite agregar, eliminar y calcular el total.
-const carrito={
-    productos:[],
-    agregar:function(producto){this.productos.push(producto)},
-    eliminar:function(nombre){this.productos=this.productos.filter(a=>a.nombre!==nombre)},
-    total:()=>productos.reduce((a,b)=>a+b.precio,0)
+const carrito = {
+    productos: [],
+    agregar: function (producto) { this.productos.push(producto) },
+    eliminar: function (nombre) { this.productos = this.productos.filter(a => a.nombre !== nombre) },
+    total: () => productos.reduce((a, b) => a + b.precio, 0)
 }
-carrito.agregar
+//Gestor de Tareas: Crea un gestor de tareas que permita agregar, completar y listar tareas pendientes.
+function GestorTareas() {
+    this.tareas = []
+    this.agregarTareas = tarea => this.tareas.push(tarea)
+    this.completarTarea = nombre => this.tareas = this.tareas.map(tarea => {
+        if (tarea.nombe === nombre) return { ...tarea, done: true }
+        return tarea
+    })
+    this.tareasPendientes = () => this.tareas.filter(a => a.done === false)
+}
+function Tarea(nombre) {
+    this.nombe = nombre
+    this.done = false
+}
+const gestoraTareas = new GestorTareas()
+gestoraTareas.agregarTareas(new Tarea('cocinar'))
+gestoraTareas.agregarTareas(new Tarea('lavar'))
+gestoraTareas.agregarTareas(new Tarea('planchar'))
+gestoraTareas.completarTarea('planchar')
+console.log(JSON.stringify(gestoraTareas.tareas))
+console.log(JSON.stringify(gestoraTareas.tareasPendientes()))
